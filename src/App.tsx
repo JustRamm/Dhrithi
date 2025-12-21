@@ -673,6 +673,96 @@ function App() {
           </div>
         </section>
 
+        {/* Speakers & Artistes Section */}
+        <section id="speakers" className="py-20 md:py-32 bg-[#FAF9F6] overflow-hidden">
+          <div className="container mx-auto px-6 mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-6">
+                Voices of Dhriti
+              </h2>
+              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+                Meet the visionaries, healers, and artists shaping this movement.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Endless Scroll Carousel */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+
+            <div className="flex overflow-hidden group">
+              <motion.div
+                className="flex gap-8 px-8"
+                animate={{ x: [0, -1000] }}
+                transition={{
+                  duration: 25,
+                  repeat: Infinity,
+                  ease: "linear",
+                  repeatType: "loop"
+                }}
+              >
+                {[...Array(2)].map((_, setIndex) => (
+                  <div key={setIndex} className="flex gap-8">
+                    {[
+                      {
+                        image: "/speaker_psychologist.png",
+                        name: "Dr. Anjali Menon",
+                        role: "Clinical Psychologist",
+                        topic: "Decoding Emotions"
+                      },
+                      {
+                        image: "/speaker_dancer.png",
+                        name: "Reshmi Nair",
+                        role: "Contemporary Dancer",
+                        topic: "Healing Through Movement"
+                      },
+                      {
+                        image: "/speaker_activist.png",
+                        name: "Adv. Manoj Krishna",
+                        role: "Social Activist",
+                        topic: "Community Mental Health"
+                      },
+                      {
+                        image: "/speaker_author.png",
+                        name: "Sarah Joseph",
+                        role: "Author & Speaker",
+                        topic: "Stories that Heal"
+                      }
+                    ].map((speaker, index) => (
+                      <div
+                        key={index}
+                        className="w-[300px] shrink-0 bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 hover:border-[#D4AF37] transition-all duration-300 group-hover:pause"
+                      >
+                        <div className="h-64 overflow-hidden">
+                          <img
+                            src={speaker.image}
+                            alt={speaker.name}
+                            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-6 text-center">
+                          <h3 className="text-xl font-bold text-[#800020] mb-1">{speaker.name}</h3>
+                          <p className="text-[#D4AF37] font-medium text-sm mb-3 uppercase tracking-wider">{speaker.role}</p>
+                          <div className="inline-block px-3 py-1 bg-[#800020]/5 rounded-full text-xs text-gray-600">
+                            Speaking on: {speaker.topic}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Gallery & Testimonials Section */}
         <section id="gallery" className="py-20 md:py-32 bg-[#FAF9F6]">
           <div className="container mx-auto px-6">
