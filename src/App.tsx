@@ -406,159 +406,6 @@ function App() {
           </div>
         </section>
 
-        {/* Activity Showcase */}
-        <section id="activities" className="py-20 md:py-32 bg-white">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
-                Experience Dhriti
-              </h2>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-                Immersive activities designed to engage, inspire, and transform
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  image: "/empathy_walk.jpeg",
-                  title: "Empathy Walk",
-                  description: "Step into someone else's shoes through guided journeys that build understanding and compassion for diverse mental health experiences."
-                },
-                {
-                  image: "/voice_worries.jpeg",
-                  title: "Voice Your Worries",
-                  description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles."
-                },
-                {
-                  image: "/art_therapy.jpeg",
-                  title: "Art & Art Therapy",
-                  description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing."
-                },
-                {
-                  image: "/wellness_games.jpeg",
-                  title: "Mental Health Wellness Games",
-                  description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages."
-                },
-                {
-                  image: "/dance_therapy.jpeg",
-                  title: "Dance Therapy",
-                  description: "Move, express, and heal through rhythm and movement in sessions blending traditional Kerala dance with therapeutic practices."
-                }
-              ].map((activity, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="group cursor-pointer"
-                >
-                  <Card className="h-full overflow-hidden border-2 hover:border-[#D4AF37] transition-all duration-300 flex flex-col">
-                    <div className="h-48 overflow-hidden">
-                      <img
-                        src={activity.image}
-                        alt={activity.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-[#800020] text-xl">{activity.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow flex flex-col">
-                      <p className="text-gray-600 mb-4 flex-grow">{activity.description}</p>
-                      <Button
-                        className="w-full bg-[#800020] hover:bg-[#A0153E] text-white mt-4"
-                        size="sm"
-                      >
-                        Register for this Activity
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Partnership/CSR Section */}
-        <section id="partnership" className="py-20 md:py-32 bg-gradient-to-br from-[#2D5016] to-[#1D4010]">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-6xl mx-auto"
-            >
-              <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-4">
-                  Partner with Dhriti
-                </h2>
-                <p className="text-xl text-white/90 max-w-2xl mx-auto">
-                  Align your organization with Kerala's groundbreaking mental health initiative
-                </p>
-                <div className="inline-block mt-4 px-4 py-2 bg-[#FDD835]/20 rounded-lg">
-                  <p className="text-[#FDD835] font-semibold">
-                    Perfect timing for March CSR closing
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                {[
-                  {
-                    icon: Award,
-                    title: "High-Visibility Branding",
-                    description: "Prominent logo placement across festival materials, social media campaigns, and community touchpoints reaching thousands."
-                  },
-                  {
-                    icon: Target,
-                    title: "CSR Alignment",
-                    description: "Direct contribution to UN SDG 3 (Good Health & Well-being) and SDG 4 (Quality Education) with measurable community impact."
-                  },
-                  {
-                    icon: Handshake,
-                    title: "Employee Engagement",
-                    description: "Unique volunteering opportunities for your team to actively participate in breaking mental health stigma."
-                  }
-                ].map((benefit, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-[#D4AF37]/30 hover:bg-white/20 transition-all duration-300">
-                      <benefit.icon className="w-12 h-12 text-[#D4AF37] mb-4" />
-                      <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>
-                      <p className="text-white/80">{benefit.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="text-center">
-                <Button
-                  size="lg"
-                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#2D5016] font-bold text-lg px-10 py-6 h-auto shadow-2xl"
-                >
-                  <Building2 className="w-5 h-5" />
-                  Become a Partner
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* Impact & Community Section */}
         <section className="py-20 md:py-32 bg-white">
           <div className="container mx-auto px-6">
@@ -673,8 +520,94 @@ function App() {
           </div>
         </section>
 
+        {/* Activity Showcase */}
+        <section id="activities" className="py-20 md:py-32 bg-white">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
+                Experience Dhriti
+              </h2>
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+                Immersive activities designed to engage, inspire, and transform
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  image: "/empathy_walk.jpeg",
+                  title: "Empathy Walk",
+                  description: "Step into someone else's shoes through guided journeys that build understanding and compassion for diverse mental health experiences."
+                },
+                {
+                  image: "/voice_worries.jpeg",
+                  title: "Voice Your Worries",
+                  description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles."
+                },
+                {
+                  image: "/art_therapy.jpeg",
+                  title: "Art & Art Therapy",
+                  description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing."
+                },
+                {
+                  image: "/wellness_games.jpeg",
+                  title: "Mental Health Wellness Games",
+                  description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages."
+                },
+                {
+                  image: "/dance_therapy.jpeg",
+                  title: "Dance Therapy",
+                  description: "Move, express, and heal through rhythm and movement in sessions blending traditional Kerala dance with therapeutic practices."
+                }
+              ].map((activity, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="group cursor-pointer"
+                >
+                  <Card className="h-full overflow-hidden border-2 hover:border-[#D4AF37] transition-all duration-300 flex flex-col">
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={activity.image}
+                        alt={activity.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-[#800020] text-xl">{activity.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-grow flex flex-col">
+                      <p className="text-gray-600 mb-4 flex-grow">{activity.description}</p>
+                      <Button
+                        className="w-full bg-[#800020] hover:bg-[#A0153E] text-white mt-4"
+                        size="sm"
+                      >
+                        Register for this Activity
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+
+
+
         {/* Speakers & Artistes Section */}
-        <section id="speakers" className="py-20 md:py-32 bg-[#FAF9F6] overflow-hidden">
+        <section id="speakers" className="py-20 md:py-32 bg-[#FAF9F6] overflow-hidden" >
           <div className="container mx-auto px-6 mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -763,132 +696,6 @@ function App() {
           </div>
         </section>
 
-        {/* Gallery & Testimonials Section */}
-        <section id="gallery" className="py-20 md:py-32 bg-[#FAF9F6]">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
-                Memories & Voices
-              </h2>
-              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-                Glimpses of our community impact and words from our supporters
-              </p>
-            </motion.div>
-
-            {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-              {[
-                { src: "/gallery1.jpeg", alt: "Community Workshop", caption: "Community Workshops" },
-                { src: "/gallery2.jpeg", alt: "Art Therapy", caption: "Expressive Art Therapy" },
-                { src: "/gallery3.jpeg", alt: "Dance Movement", caption: "Cultural Wellness" }
-              ].map((img, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -10 }}
-                  className="relative group overflow-hidden rounded-2xl shadow-lg aspect-[4/3]"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-white font-semibold text-lg">{img.caption}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Testimonials */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  quote: "Dhriti is exactly what Kerala needs right now. A festival that celebrates mental health is a revolutionary concept that removes the fear and shame associated with seeking help.",
-                  author: "Srila Menon",
-                  role: "Co-Founder"
-                },
-                {
-                  quote: "Partnering with this movement allows us to give back to the community meaningfully. The energy and positivity of this initiative are infectious.",
-                  author: "Maya Menon",
-                  role: "Founder"
-                }
-              ].map((testimonial, index) => (
-                <Card key={index} className="bg-white border-[#D4AF37]/20 hover:shadow-xl transition-all">
-                  <CardContent className="p-8">
-                    <Quote className="w-10 h-10 text-[#D4AF37]/40 mb-4" />
-                    <p className="text-lg text-gray-700 italic mb-6">"{testimonial.quote}"</p>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-[#800020] flex items-center justify-center text-white font-bold text-xl">
-                        {testimonial.author[0]}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-[#800020]">{testimonial.author}</h4>
-                        <p className="text-sm text-gray-500">{testimonial.role}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section id="faq" className="py-20 md:py-32 bg-white">
-          <div className="container mx-auto px-6 max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
-                Frequently Asked Questions
-              </h2>
-            </motion.div>
-
-            <Accordion type="single" collapsible className="w-full">
-              {[
-                {
-                  q: "Is the festival free to attend?",
-                  a: "Yes! Dhriti is an open community festival. Most activities, stalls, and performances are free for everyone. Some specialized workshops may have a nominal registration fee to cover materials."
-                },
-                {
-                  q: "Who can attend the festival?",
-                  a: "Everyone! Dhriti is designed for all age groups - from children to the elderly. We have specific activities curated for youth, families, and seniors."
-                },
-                {
-                  q: "Where is the festival taking place?",
-                  a: "The festival will be held at the central grounds in Kochi. Detailed venue maps and transportation guides will be shared closer to the event date."
-                },
-                {
-                  q: "How can I volunteer?",
-                  a: "We love our volunteers! You can sign up through the 'Join the Movement' button above. We have roles in event management, stall coordination, and guest guidance."
-                },
-                {
-                  q: "Is there parking available?",
-                  a: "Yes, there is ample parking at the venue. we highly recommend using public transport or our festival shuttle services to reduce traffic congestion."
-                }
-              ].map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#D4AF37]/20">
-                  <AccordionTrigger className="text-lg font-semibold text-[#2D5016] hover:text-[#800020] text-left">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 text-base leading-relaxed">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
-
         {/* Venue Section */}
         <section id="venue" className="py-20 md:py-32 bg-[#F5F5DC]">
           <div className="container mx-auto px-6">
@@ -971,8 +778,234 @@ function App() {
           </div>
         </section>
 
+        {/* Gallery & Testimonials Section */}
+        <section id="gallery" className="py-20 md:py-32 bg-[#FAF9F6]" >
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
+                Memories & Voices
+              </h2>
+              <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+                Glimpses of our community impact and words from our supporters
+              </p>
+            </motion.div>
+
+            {/* Gallery Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+              {[
+                { src: "/gallery1.jpeg", alt: "Community Workshop", caption: "Community Workshops" },
+                { src: "/gallery2.jpeg", alt: "Art Therapy", caption: "Expressive Art Therapy" },
+                { src: "/gallery3.jpeg", alt: "Dance Movement", caption: "Cultural Wellness" }
+              ].map((img, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -10 }}
+                  className="relative group overflow-hidden rounded-2xl shadow-lg aspect-[4/3]"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className="text-white font-semibold text-lg">{img.caption}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Testimonials */}
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  quote: "Dhriti is exactly what Kerala needs right now. A festival that celebrates mental health is a revolutionary concept that removes the fear and shame associated with seeking help.",
+                  author: "Srila Menon",
+                  role: "Co-Founder"
+                },
+                {
+                  quote: "Partnering with this movement allows us to give back to the community meaningfully. The energy and positivity of this initiative are infectious.",
+                  author: "Maya Menon",
+                  role: "Founder"
+                }
+              ].map((testimonial, index) => (
+                <Card key={index} className="bg-white border-[#D4AF37]/20 hover:shadow-xl transition-all">
+                  <CardContent className="p-8">
+                    <Quote className="w-10 h-10 text-[#D4AF37]/40 mb-4" />
+                    <p className="text-lg text-gray-700 italic mb-6">"{testimonial.quote}"</p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-[#800020] flex items-center justify-center text-white font-bold text-xl">
+                        {testimonial.author[0]}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-[#800020]">{testimonial.author}</h4>
+                        <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Partnership/CSR Section */}
+        <section id="partnership" className="py-20 md:py-32 bg-gradient-to-br from-[#2D5016] to-[#1D4010]">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="max-w-6xl mx-auto"
+            >
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-4">
+                  Partner with Dhriti
+                </h2>
+                <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                  Align your organization with Kerala's groundbreaking mental health initiative
+                </p>
+                <div className="inline-block mt-4 px-4 py-2 bg-[#FDD835]/20 rounded-lg">
+                  <p className="text-[#FDD835] font-semibold">
+                    Perfect timing for March CSR closing
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                {[
+                  {
+                    icon: Award,
+                    title: "High-Visibility Branding",
+                    description: "Prominent logo placement across festival materials, social media campaigns, and community touchpoints reaching thousands."
+                  },
+                  {
+                    icon: Target,
+                    title: "CSR Alignment",
+                    description: "Direct contribution to UN SDG 3 (Good Health & Well-being) and SDG 4 (Quality Education) with measurable community impact."
+                  },
+                  {
+                    icon: Handshake,
+                    title: "Employee Engagement",
+                    description: "Unique volunteering opportunities for your team to actively participate in breaking mental health stigma."
+                  }
+                ].map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-[#D4AF37]/30 hover:bg-white/20 transition-all duration-300">
+                      <benefit.icon className="w-12 h-12 text-[#D4AF37] mb-4" />
+                      <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>
+                      <p className="text-white/80">{benefit.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Sponsorship Opportunities Showcase */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-bold text-white text-center mb-8">Sponsorship Opportunities</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    "Title Sponsor",
+                    "Health Partner",
+                    "Wellness Partner",
+                    "Community Partner",
+                    "Venue Partner",
+                    "Media Partner",
+                    "Tech Partner",
+                    "Gift Partner"
+                  ].map((role, index) => (
+                    <div
+                      key={index}
+                      className="border border-[#D4AF37]/30 bg-white/5 rounded-lg p-6 flex flex-col items-center justify-center aspect-video group hover:bg-[#D4AF37]/10 transition-colors cursor-pointer"
+                    >
+                      <div className="w-12 h-12 rounded-full border border-dashed border-[#D4AF37]/50 flex items-center justify-center mb-3 group-hover:border-solid group-hover:bg-[#D4AF37] group-hover:text-[#800020] transition-all">
+                        <span className="text-[#D4AF37] text-2xl group-hover:text-[#800020]">+</span>
+                      </div>
+                      <span className="text-white/80 font-medium text-sm text-center group-hover:text-white">{role}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Button
+                  size="lg"
+                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#2D5016] font-bold text-lg px-10 py-6 h-auto shadow-2xl"
+                >
+                  <Building2 className="w-5 h-5" />
+                  Become a Partner
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="py-20 md:py-32 bg-white" >
+          <div className="container mx-auto px-6 max-w-4xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
+                Frequently Asked Questions
+              </h2>
+            </motion.div>
+
+            <Accordion type="single" collapsible className="w-full">
+              {[
+                {
+                  q: "Is the festival free to attend?",
+                  a: "Yes! Dhriti is an open community festival. Most activities, stalls, and performances are free for everyone. Some specialized workshops may have a nominal registration fee to cover materials."
+                },
+                {
+                  q: "Who can attend the festival?",
+                  a: "Everyone! Dhriti is designed for all age groups - from children to the elderly. We have specific activities curated for youth, families, and seniors."
+                },
+                {
+                  q: "Where is the festival taking place?",
+                  a: "The festival will be held at the central grounds in Kochi. Detailed venue maps and transportation guides will be shared closer to the event date."
+                },
+                {
+                  q: "How can I volunteer?",
+                  a: "We love our volunteers! You can sign up through the 'Join the Movement' button above. We have roles in event management, stall coordination, and guest guidance."
+                },
+                {
+                  q: "Is there parking available?",
+                  a: "Yes, there is ample parking at the venue. we highly recommend using public transport or our festival shuttle services to reduce traffic congestion."
+                }
+              ].map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#D4AF37]/20">
+                  <AccordionTrigger className="text-lg font-semibold text-[#2D5016] hover:text-[#800020] text-left">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 text-base leading-relaxed">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section >
+
+
+
         {/* Footer/Contact Section */}
-        <footer className="bg-gradient-to-b from-[#800020] to-[#5C0120] text-white py-16">
+        <footer className="bg-gradient-to-b from-[#800020] to-[#5C0120] text-white py-16" >
           {/* Kerala Pattern Divider */}
           <div className="h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mb-12" />
 
@@ -1063,18 +1096,20 @@ function App() {
 
       {/* Scroll to Top Button */}
       <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-8 right-8 z-50 p-4 bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] rounded-full shadow-2xl border-2 border-white hover:scale-110 transition-all duration-300"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="w-6 h-6" />
-          </motion.button>
-        )}
+        {
+          showScrollTop && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={scrollToTop}
+              className="fixed bottom-8 right-8 z-50 p-4 bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] rounded-full shadow-2xl border-2 border-white hover:scale-110 transition-all duration-300"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="w-6 h-6" />
+            </motion.button>
+          )
+        }
       </AnimatePresence>
     </div>
   );
