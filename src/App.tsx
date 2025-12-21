@@ -11,16 +11,11 @@ import {
   Sparkles,
   Brain,
   Laugh,
-  Footprints,
-  MessageSquare,
-  Palette,
   Gamepad2,
-  Music,
   Building2,
   Target,
   Handshake,
   Mail,
-  Facebook,
   Instagram,
   Linkedin,
   Award,
@@ -231,7 +226,7 @@ function App() {
                     size="lg"
                     className="border-2 border-white bg-white text-[#800020] hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-lg px-8 py-6 h-auto shadow-xl transition-all duration-300"
                   >
-                    Learn More
+                    Learn ME
                   </Button>
                 </a>
               </div>
