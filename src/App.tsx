@@ -858,8 +858,7 @@ function App() {
 
           {/* Endless Scroll Carousel */}
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+
 
             <div className="flex overflow-hidden group">
               {/* Mobile: Horizontal Manual Scroll */}

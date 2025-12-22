@@ -49,6 +49,7 @@ const isOverlappingText = (x: number, y: number) => {
 
 const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { isFlying: boolean, delay: number, mousePos: { x: number, y: number }, index: number, isSpecial?: boolean, onClick?: () => void }) => {
     const controls = useAnimation();
+    const rotateControls = useAnimation(); // New controller for rotation only
     const wingControls = useAnimation();
 
     // Physics-based movement for mouse interaction
@@ -84,7 +85,7 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
 
     useEffect(() => {
         if (isFlying) {
-            // CHAOTIC FLIGHT MODE
+            // CHAOTIC FLIGHT MODE - Position
             controls.start({
                 x: [
                     null,
@@ -96,7 +97,6 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                     Math.random() * window.innerHeight,
                     Math.random() * window.innerHeight
                 ],
-                rotate: [0, 15, -15, 10, -10, 0],
                 opacity: 0.9,
                 scale: 1,
                 transition: {
@@ -106,6 +106,18 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                     ease: "easeInOut"
                 }
             });
+
+            // CHAOTIC FLIGHT MODE - Rotation (Separate)
+            rotateControls.start({
+                rotate: [0, 15, -15, 10, -10, 0],
+                transition: {
+                    duration: 25 + Math.random() * 10,
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                    ease: "easeInOut"
+                }
+            });
+
         } else {
             // LANDING MODE
             const spots = getLandingSpots();
@@ -179,10 +191,10 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                 }
             }
 
+            // animate position
             controls.start({
                 x: destX,
                 y: destY,
-                rotate: Math.random() * 360,
                 opacity: 0.9,
                 scale: 1,
                 transition: {
@@ -191,8 +203,18 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                     stiffness: 40
                 }
             });
+
+            // animate rotation
+            rotateControls.start({
+                rotate: Math.random() * 360,
+                transition: {
+                    duration: 5 + Math.random() * 2,
+                    type: "spring",
+                    stiffness: 40
+                }
+            });
         }
-    }, [isFlying, controls, index]);
+    }, [isFlying, controls, rotateControls, index]);
 
     // Mouse Interaction: Fly away slightly if mouse gets too close
     // Mouse Interaction: Fly away slightly if mouse gets too close
@@ -229,65 +251,67 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
             {/* Invisible Hit Area Expansion for easier clicking */}
             <div className="absolute -inset-10 bg-transparent z-50 rounded-full" />
 
-            <motion.div animate={wingControls} className="origin-center relative">
-                {/* Special Glow & Sparkle Effect */}
-                {isSpecial && (
-                    <>
+            {/* Bubble moved OUTSIDE rotating container to stay upright */}
+            {isSpecial && !isFlying && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8, y: 15 }}
+                    animate={{
+                        opacity: [0, 1, 1, 0],
+                        scale: [0.8, 1, 1, 0.9],
+                        y: [15, 0, 0, 10]
+                    }}
+                    transition={{
+                        duration: 5, // Visible for 5s
+                        times: [0, 0.15, 0.85, 1], // Smooth entry/exit
+                        repeat: Infinity,
+                        repeatDelay: 8, // Longer pause (8s) to be less annoying
+                        delay: 3,
+                        ease: "easeInOut"
+                    }}
+                    onClick={(e) => { e.stopPropagation(); onClick?.(); }} // Allow clicking the bubble too
+                    className="absolute -top-14 -right-12 z-[60] cursor-pointer group"
+                >
+                    <div className="relative px-3 py-1.5 bg-black/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.3)] flex items-center gap-2 overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent w-full -translate-x-full animate-[shimmer_2s_infinite]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700] animate-pulse shadow-[0_0_8px_#FFD700]" />
+                        <span className="text-[10px] tracking-widest font-medium text-[#FFE4B5] uppercase">Click Me</span>
+                    </div>
+                    {/* Connecting Line */}
+                    <div className="absolute left-1/2 -bottom-2 w-[1px] h-2 bg-gradient-to-b from-[#D4AF37]/50 to-transparent" />
+                </motion.div>
+            )}
+
+            {/* Rotating Container for Butterfly Body/Wings */}
+            <motion.div animate={rotateControls}>
+                <motion.div animate={wingControls} className="origin-center relative">
+                    {/* Special Glow & Sparkle Effect */}
+                    {isSpecial && (
                         <motion.div
                             animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.2, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
                             className="absolute inset-0 bg-[#FFD700] blur-xl rounded-full -z-10"
                         />
-
-
-                        {/* "Click Me" Premium Hint (Appears periodically) */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                            animate={{
-                                opacity: [0, 1, 1, 0],
-                                scale: [0.8, 1, 1, 0.9],
-                                y: [15, 0, 0, 10]
-                            }}
-                            transition={{
-                                duration: 5, // Visible for 5s
-                                times: [0, 0.15, 0.85, 1], // Smooth entry/exit
-                                repeat: Infinity,
-                                repeatDelay: 8, // Longer pause (8s) to be less annoying
-                                delay: 3,
-                                ease: "easeInOut"
-                            }}
-                            onClick={(e) => { e.stopPropagation(); onClick?.(); }} // Allow clicking the bubble too
-                            className="absolute -top-14 -right-12 z-[60] cursor-pointer group"
-                        >
-                            <div className="relative px-3 py-1.5 bg-black/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.3)] flex items-center gap-2 overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent w-full -translate-x-full animate-[shimmer_2s_infinite]" />
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700] animate-pulse shadow-[0_0_8px_#FFD700]" />
-                                <span className="text-[10px] tracking-widest font-medium text-[#FFE4B5] uppercase">Click Me</span>
-                            </div>
-                            {/* Connecting Line */}
-                            <div className="absolute left-1/2 -bottom-2 w-[1px] h-2 bg-gradient-to-b from-[#D4AF37]/50 to-transparent" />
-                        </motion.div>
-                    </>
-                )}
-
-                {/* Double Wing Layer for 3D Feel */}
-                <svg width={isSpecial ? "50" : "25"} height={isSpecial ? "50" : "25"} viewBox="0 0 50 50" fill="none" className="drop-shadow-lg">
-                    {/* Lower Wing (Gold / Pink for Special) */}
-                    <path d="M25 25 C 15 15, 5 15, 10 30 C 5 45, 20 45, 25 25" fill={isSpecial ? "#FF1493" : "#D4AF37"} opacity={isSpecial ? "0.9" : "0.6"} />
-                    <path d="M25 25 C 35 15, 45 15, 40 30 C 45 45, 30 45, 25 25" fill={isSpecial ? "#FF1493" : "#D4AF37"} opacity={isSpecial ? "0.9" : "0.6"} />
-
-                    {/* Upper Wing (Creamy White / Pinkish White for Special) */}
-                    <path d="M25 25 C 20 5, 5 5, 10 25 C 5 35, 20 35, 25 25" fill={isSpecial ? "#FFF0F5" : "#FFF8DC"} stroke={isSpecial ? "#C71585" : "#D4AF37"} strokeWidth={isSpecial ? "1" : "0.5"} opacity="0.95" />
-                    <path d="M25 25 C 30 5, 45 5, 40 25 C 45 35, 30 35, 25 25" fill={isSpecial ? "#FFF0F5" : "#FFF8DC"} stroke={isSpecial ? "#C71585" : "#D4AF37"} strokeWidth={isSpecial ? "1" : "0.5"} opacity="0.95" />
-
-                    {/* Body */}
-                    <path d="M25 15 L25 35" stroke="#8B4513" strokeWidth="2" strokeLinecap="round" />
-
-                    {/* Interactive Click Effect Ripple (Hidden by default) */}
-                    {isHovered && (
-                        <circle cx="25" cy="25" r="20" stroke="#FFF" strokeWidth="1" opacity="0.5" className="animate-ping" />
                     )}
-                </svg>
+
+                    {/* Double Wing Layer for 3D Feel */}
+                    <svg width={isSpecial ? "50" : "25"} height={isSpecial ? "50" : "25"} viewBox="0 0 50 50" fill="none" className="drop-shadow-lg">
+                        {/* Lower Wing (Gold / Pink for Special) */}
+                        <path d="M25 25 C 15 15, 5 15, 10 30 C 5 45, 20 45, 25 25" fill={isSpecial ? "#FF1493" : "#D4AF37"} opacity={isSpecial ? "0.9" : "0.6"} />
+                        <path d="M25 25 C 35 15, 45 15, 40 30 C 45 45, 30 45, 25 25" fill={isSpecial ? "#FF1493" : "#D4AF37"} opacity={isSpecial ? "0.9" : "0.6"} />
+
+                        {/* Upper Wing (Creamy White / Pinkish White for Special) */}
+                        <path d="M25 25 C 20 5, 5 5, 10 25 C 5 35, 20 35, 25 25" fill={isSpecial ? "#FFF0F5" : "#FFF8DC"} stroke={isSpecial ? "#C71585" : "#D4AF37"} strokeWidth={isSpecial ? "1" : "0.5"} opacity="0.95" />
+                        <path d="M25 25 C 30 5, 45 5, 40 25 C 45 35, 30 35, 25 25" fill={isSpecial ? "#FFF0F5" : "#FFF8DC"} stroke={isSpecial ? "#C71585" : "#D4AF37"} strokeWidth={isSpecial ? "1" : "0.5"} opacity="0.95" />
+
+                        {/* Body */}
+                        <path d="M25 15 L25 35" stroke="#8B4513" strokeWidth="2" strokeLinecap="round" />
+
+                        {/* Interactive Click Effect Ripple (Hidden by default) */}
+                        {isHovered && (
+                            <circle cx="25" cy="25" r="20" stroke="#FFF" strokeWidth="1" opacity="0.5" className="animate-ping" />
+                        )}
+                    </svg>
+                </motion.div>
             </motion.div>
         </motion.div>
     );
