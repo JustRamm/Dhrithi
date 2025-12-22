@@ -195,8 +195,10 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
     }, [isFlying, controls, index]);
 
     // Mouse Interaction: Fly away slightly if mouse gets too close
+    // Mouse Interaction: Fly away slightly if mouse gets too close
+    // DISABLE SCATTER for Special Mascot to make it easier to click
     useEffect(() => {
-        if (!isFlying) {
+        if (!isFlying && !isSpecial) {
             const dx = x.get() - mousePos.x;
             const dy = y.get() - mousePos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -210,20 +212,23 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                 });
             }
         }
-    }, [mousePos, isFlying, controls, x, y]);
+    }, [mousePos, isFlying, controls, x, y, isSpecial]);
 
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={controls}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
+            onHoverStart={() => { setIsHovered(true); controls.stop(); }} // Stop movement on hover to make clicking easier
+            onHoverEnd={() => { setIsHovered(false); }}
             whileHover={{ scale: isSpecial ? 1.5 : 1.2, zIndex: 100 }}
             onClick={onClick}
             style={{ x: springX, y: springY }}
             className={`absolute pointer-events-auto z-40 transition-colors duration-300 cursor-pointer ${isHovered ? 'brightness-125' : ''}`}
         // Made pointer-events-auto so user can interact with them specifically
         >
+            {/* Invisible Hit Area Expansion for easier clicking */}
+            <div className="absolute -inset-10 bg-transparent z-50 rounded-full" />
+
             <motion.div animate={wingControls} className="origin-center relative">
                 {/* Special Glow & Sparkle Effect */}
                 {isSpecial && (
@@ -251,6 +256,7 @@ const Butterfly = ({ isFlying, delay, mousePos, index, isSpecial, onClick }: { i
                                 delay: 3,
                                 ease: "easeInOut"
                             }}
+                            onClick={(e) => { e.stopPropagation(); onClick?.(); }} // Allow clicking the bubble too
                             className="absolute -top-14 -right-12 z-[60] cursor-pointer group"
                         >
                             <div className="relative px-3 py-1.5 bg-black/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full shadow-[0_4px_20px_rgba(212,175,55,0.3)] flex items-center gap-2 overflow-hidden">
