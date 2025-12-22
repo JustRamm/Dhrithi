@@ -347,9 +347,9 @@ function App() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-6"
+              className="space-y-3 md:space-y-6"
             >
-              <div className="inline-block px-4 py-2 md:px-6 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-4 max-w-[90vw]">
+              <div className="inline-block px-4 py-2 md:px-6 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-2 md:mb-4 max-w-[90vw]">
                 <p className="text-[#D4AF37] font-semibold text-xs md:text-base whitespace-normal break-words leading-tight">
                   Mind Empowered Mental Health Festival
                 </p>
@@ -359,18 +359,18 @@ function App() {
                 Dhriti
               </h1>
 
-              <p className="text-2xl md:text-4xl text-[#D4AF37] font-light italic">
+              <p className="text-xl md:text-4xl text-[#D4AF37] font-light italic">
                 Elevate yourself by yourself
               </p>
 
-              <div className="flex items-center justify-center gap-3 text-white/90 text-xl md:text-2xl mt-8">
-                <Sparkles className="w-6 h-6 text-[#D4AF37]" />
+              <div className="flex items-center justify-center gap-3 text-white/90 text-lg md:text-2xl mt-4 md:mt-8">
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37]" />
                 <span>February 14, 2026</span>
-                <Sparkles className="w-6 h-6 text-[#D4AF37]" />
+                <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37]" />
               </div>
 
               {/* Countdown Timer */}
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mt-8">
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mt-5 md:mt-8">
                 {[
                   { value: timeLeft.days, label: "Days" },
                   { value: timeLeft.hours, label: "Hours" },
@@ -380,11 +380,11 @@ function App() {
                   <div key={index} className="flex flex-col items-center">
                     <div className="relative group">
                       <div className="absolute inset-0 bg-[#D4AF37] blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-xl" />
-                      <div className="relative bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 p-1.5 md:p-4 rounded-xl flex flex-col items-center min-w-[60px] md:min-w-[100px] shadow-2xl hover:-translate-y-1 transition-transform duration-300">
+                      <div className="relative bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 p-2 md:p-4 rounded-xl flex flex-col items-center min-w-[65px] md:min-w-[100px] shadow-2xl hover:-translate-y-1 transition-transform duration-300">
                         <span className="text-xl md:text-5xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] leading-none">
                           {item.value.toString().padStart(2, '0')}
                         </span>
-                        <span className="text-[#D4AF37] text-[8px] md:text-xs font-bold uppercase tracking-widest mt-1 md:mt-2">
+                        <span className="text-[#D4AF37] text-[9px] md:text-xs font-bold uppercase tracking-widest mt-1 md:mt-2">
                           {item.label}
                         </span>
                       </div>
@@ -393,23 +393,23 @@ function App() {
                 ))}
               </div>
 
-              <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mt-6">
+              <p className="text-white/80 text-base md:text-xl max-w-3xl mx-auto mt-4 md:mt-6 px-4">
                 Kerala’s First Mental Health Festival with alot of fun activities and practical workshops
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mt-6 md:mt-10 w-full">
                 <Button
                   size="lg"
-                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-sm md:text-lg px-6 py-3 md:px-8 md:py-6 h-auto shadow-xl active:scale-95 transition-transform duration-200"
+                  className="w-full sm:w-auto bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-sm md:text-lg px-8 py-3 md:px-8 md:py-6 h-auto shadow-xl active:scale-95 transition-transform duration-200"
                 >
                   Join the Movement
                 </Button>
-                <a href="https://www.mind-empowered.org" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.mind-empowered.org" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="border-2 border-white bg-transparent text-white hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-sm md:text-lg px-6 py-3 md:px-8 md:py-6 h-auto shadow-xl transition-all duration-300 active:scale-95"
+                    className="w-full sm:w-auto border-2 border-white bg-transparent text-white hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-sm md:text-lg px-8 py-3 md:px-8 md:py-6 h-auto shadow-xl transition-all duration-300 active:scale-95"
                   >
-                    Learn ME
+                    Learn about ME
                   </Button>
                 </a>
               </div>
