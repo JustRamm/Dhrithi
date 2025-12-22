@@ -28,7 +28,9 @@ import {
   Home,
   Info,
   Mic,
-  Image
+  Image,
+  Clock,
+  X
 } from "lucide-react";
 import { ThemeSection } from "@/components/ThemeSection";
 import { ButterflyBackground } from "@/components/ButterflyBackground";
@@ -36,6 +38,7 @@ import { ButterflyBackground } from "@/components/ButterflyBackground";
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedSpeaker, setSelectedSpeaker] = useState<{ name: string; role: string; topic: string; image: string; bio: string } | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<{ title: string; description: string; image: string; timing: string; instruction: string; speaker?: string; isSurprise?: boolean } | null>(null);
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -717,32 +720,50 @@ function App() {
                 {
                   image: "/empathy_walk.png",
                   title: "Empathy Walk",
-                  description: "Step into someone else's shoes through guided journeys that build understanding and compassion for diverse mental health experiences."
+                  description: "Step into someone else's shoes through guided journeys that build understanding and compassion for diverse mental health experiences.",
+                  timing: "9:00 AM - 10:00 AM",
+                  instruction: "Meet at the main entrance. Comfortable walking shoes recommended.",
+                  speaker: "Community Guides"
                 },
                 {
                   image: "/voice_worries.png",
                   title: "Voice Your Worries",
-                  description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles."
+                  description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles.",
+                  timing: "11:00 AM - 12:00 PM",
+                  instruction: "Confidentiality assured. Facilitated by trained counselors.",
+                  speaker: "Counseling Team"
                 },
                 {
                   image: "/art_therapy.png",
-                  title: "Art & Art Therapy",
-                  description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing."
+                  title: "Art Therapy Workshop",
+                  description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing.",
+                  timing: "10:00 AM - 11:30 AM",
+                  instruction: "All materials provided. Wear clothes you don't mind getting messy!",
+                  speaker: "Sarah Arts"
                 },
                 {
                   image: "/wellness_games.png",
                   title: "Mental Health Wellness Games",
-                  description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages."
+                  description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages.",
+                  timing: "12:00 PM - 2:00 PM",
+                  instruction: "Team participation encouraged. Suitable for all age groups.",
+                  speaker: "Game Master Jay"
                 },
                 {
                   image: "/dance_therapy.png",
                   title: "Dance Therapy",
-                  description: "Move, express, and heal through rhythm and movement in sessions blending traditional Kerala dance with therapeutic practices."
+                  description: "Move, express, and heal through rhythm and movement in sessions blending traditional Kerala dance with therapeutic practices.",
+                  timing: "3:00 PM - 4:30 PM",
+                  instruction: "Comfortable clothing recommended. No prior dance experience required.",
+                  speaker: "Reshmi Nair"
                 },
                 {
                   isSurprise: true,
                   title: "A Surprise Event",
-                  description: "It's a surprise event. Join us to find out!"
+                  description: "It's a surprise event. Join us to find out!",
+                  timing: "TBA",
+                  instruction: "Keep an eye on our social media channels!",
+                  image: ""
                 }
               ].map((activity, index) => (
                 <motion.div
@@ -841,11 +862,12 @@ function App() {
                       <CardContent className="flex-grow flex flex-col relative z-10">
                         <p className={`${activity.isSurprise ? 'text-[#FFE4B5]' : 'text-gray-600'} mb-4 flex-grow`}>{activity.description}</p>
                         <Button
+                          onClick={() => setSelectedActivity(activity)}
                           disabled={activity.isSurprise}
                           className={`w-full ${activity.isSurprise ? 'bg-[#FFD700]/50 text-[#800020]/70 cursor-not-allowed border border-[#800020]/20' : 'bg-[#800020] hover:bg-[#A0153E] text-white active:scale-95'} mt-4 transition-all`}
                           size="sm"
                         >
-                          {activity.isSurprise ? 'Coming Soon...' : 'Register for this Activity'}
+                          {activity.isSurprise ? 'Coming Soon...' : 'View Event'}
                         </Button>
                       </CardContent>
                     </Card>
@@ -854,6 +876,83 @@ function App() {
               ))}
             </div>
           </div>
+
+          {/* Activity Details Modal */}
+          <AnimatePresence>
+            {selectedActivity && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setSelectedActivity(null)}
+                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl relative z-10 flex flex-col"
+                >
+                  <button
+                    onClick={() => setSelectedActivity(null)}
+                    className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
+                  >
+                    <X className="w-6 h-6 text-[#800020]" />
+                  </button>
+
+                  <div className="h-48 md:h-64 overflow-hidden relative">
+                    <img
+                      src={selectedActivity.image}
+                      alt={selectedActivity.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                      <h3 className="text-3xl font-bold text-white shadow-black drop-shadow-md">{selectedActivity.title}</h3>
+                    </div>
+                  </div>
+
+                  <div className="p-6 md:p-8 space-y-6 overflow-y-auto max-h-[60vh]">
+                    <div>
+                      <h4 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider mb-1">Description</h4>
+                      <p className="text-gray-700 text-lg leading-relaxed">{selectedActivity.description}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#D4AF37]/20">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Clock className="w-5 h-5 text-[#800020]" />
+                          <h4 className="font-bold text-[#800020]">Timing</h4>
+                        </div>
+                        <p className="text-gray-600 font-medium">{selectedActivity.timing}</p>
+                      </div>
+
+                      {selectedActivity.speaker && (
+                        <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#D4AF37]/20">
+                          <div className="flex items-center gap-3 mb-2">
+                            <Mic className="w-5 h-5 text-[#800020]" />
+                            <h4 className="font-bold text-[#800020]">Facilitator</h4>
+                          </div>
+                          <p className="text-gray-600 font-medium">{selectedActivity.speaker}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="bg-[#800020]/5 p-5 rounded-xl border-l-4 border-[#800020]">
+                      <h4 className="font-bold text-[#800020] mb-2 flex items-center gap-2">
+                        <Info className="w-5 h-5" /> Instructions
+                      </h4>
+                      <p className="text-gray-700 italic">{selectedActivity.instruction}</p>
+                    </div>
+
+                    <Button className="w-full bg-[#800020] hover:bg-[#600018] text-white py-6 text-lg shadow-lg mt-4">
+                      Register Now
+                    </Button>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
         </section>
 
 

@@ -8,4 +8,4 @@ dist-ssr
 !.env.example
 
 .vite/
-.vscode/
+
