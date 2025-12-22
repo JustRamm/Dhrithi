@@ -30,6 +30,8 @@ import {
   Mic,
   Image
 } from "lucide-react";
+import { ThemeSection } from "@/components/ThemeSection";
+import { ButterflyBackground } from "@/components/ButterflyBackground";
 
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -87,7 +89,8 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-[#FFF8DC] to-white">
+    <div className="w-full min-h-screen bg-gradient-to-b from-[#FFF8DC] to-white relative">
+      <ButterflyBackground />
       {/* Top Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#800020]/95 backdrop-blur-md border-b border-[#D4AF37]/20">
         <div className="container mx-auto px-6">
@@ -366,22 +369,31 @@ function App() {
               </div>
 
               {/* Countdown Timer */}
-              <div className="flex justify-center mt-10">
-                <div className="relative group">
-                  <div className="absolute inset-0 bg-[#D4AF37] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-                  <div className="relative bg-black/30 backdrop-blur-md border border-[#D4AF37]/40 px-5 py-3 md:px-8 md:py-4 rounded-full flex items-baseline gap-2 md:gap-3 shadow-2xl">
-                    <span className="text-3xl md:text-7xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                      {timeLeft.days}
-                    </span>
-                    <span className="text-[#D4AF37] text-sm md:text-2xl font-medium uppercase tracking-widest">
-                      Days To Go
-                    </span>
+              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mt-8">
+                {[
+                  { value: timeLeft.days, label: "Days" },
+                  { value: timeLeft.hours, label: "Hours" },
+                  { value: timeLeft.minutes, label: "Minutes" },
+                  { value: timeLeft.seconds, label: "Seconds" }
+                ].map((item, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <div className="relative group">
+                      <div className="absolute inset-0 bg-[#D4AF37] blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-xl" />
+                      <div className="relative bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 p-1.5 md:p-4 rounded-xl flex flex-col items-center min-w-[60px] md:min-w-[100px] shadow-2xl hover:-translate-y-1 transition-transform duration-300">
+                        <span className="text-xl md:text-5xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] leading-none">
+                          {item.value.toString().padStart(2, '0')}
+                        </span>
+                        <span className="text-[#D4AF37] text-[8px] md:text-xs font-bold uppercase tracking-widest mt-1 md:mt-2">
+                          {item.label}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
 
               <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mt-6">
-                Kerala's first-of-its-kind community-led movement using the fun and meaning of a festival to break mental health stigma
+                Kerala’s First Mental Health Festival with alot of fun activities and practical workshops
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
@@ -406,6 +418,95 @@ function App() {
 
         {/* The Why Section */}
         <section id="why" className="py-20 md:py-32 bg-white">
+          {/* Theme of the Year Section */}
+          <div className="container mx-auto px-6 mb-24">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center max-w-5xl mx-auto"
+            >
+              <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#800020]/5 border border-[#800020]/10 text-[#800020] font-bold text-sm mb-8 uppercase tracking-widest shadow-sm">
+                <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+                Theme of 2026
+                <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+              </div>
+
+              {/* Enhanced Title */}
+              <h2 className="text-5xl md:text-7xl font-bold text-[#800020] mb-12 leading-tight relative inline-block">
+                Celebrating{" "}
+                <span className="relative">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#B4941F] to-[#D4AF37] bg-300% animate-gradient">
+                    Resilience
+                  </span>
+                  {/* Decorative Underline */}
+                  <svg className="absolute -bottom-2 left-0 w-full h-4 text-[#D4AF37]" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.5" />
+                  </svg>
+                </span>
+              </h2>
+
+              <div className="group relative">
+                {/* Dynamic Kintsugi Background Glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] via-[#800020] to-[#D4AF37] rounded-[2.5rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700"></div>
+
+                <div className="bg-[#FFFaf0] rounded-[2rem] p-8 md:p-14 shadow-2xl border border-[#D4AF37]/20 relative overflow-hidden isolate">
+                  {/* Kintsugi Gold Cracks Pattern */}
+                  <div className="absolute inset-0 opacity-10 pointer-events-none">
+                    <svg className="w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="none">
+                      <path d="M0 100 Q 50 120 100 80 T 200 150 T 300 100 T 400 180" stroke="#D4AF37" strokeWidth="2" fill="none" />
+                      <path d="M400 300 Q 350 280 300 320 T 200 250 T 100 300 T 0 220" stroke="#D4AF37" strokeWidth="2" fill="none" />
+                      <path d="M150 0 Q 180 50 140 100 T 180 200" stroke="#D4AF37" strokeWidth="1.5" fill="none" />
+                      <path d="M250 400 Q 220 350 260 300 T 220 200" stroke="#D4AF37" strokeWidth="1.5" fill="none" />
+                    </svg>
+                  </div>
+
+                  {/* Floating Blur Elements */}
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-3xl -mr-20 -mt-20"
+                  />
+                  <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-0 left-0 w-64 h-64 bg-[#800020]/5 rounded-full blur-3xl -ml-20 -mb-20"
+                  />
+
+                  <Quote className="absolute top-10 left-10 w-16 h-16 text-[#D4AF37]/20" />
+
+                  <div className="space-y-8 text-lg md:text-2xl text-[#3E2723] leading-relaxed font-light relative z-10 font-serif">
+                    <p>
+                      This year, Dhriti honors the <span className="font-semibold text-[#800020]">indomitable human spirit</span>.
+                      Resilience is not about never falling; it is about the <i className="text-[#800020]">courage to rise</i>, again and again.
+                    </p>
+                    <p className="text-base md:text-xl text-[#3E2723]/80">
+                      Just like the art of <span className="font-semibold text-[#D4AF37]">Kintsugi</span> repairs broken pottery with gold,
+                      we celebrate our scars not as flaws, but as beautiful proof of our survival and strength.
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-8 mt-16 pt-12 border-t border-[#D4AF37]/20">
+                    {[
+                      { icon: Shield, title: "Strength", desc: "Finding power in vulnerability" },
+                      { icon: TrendingUp, title: "Growth", desc: "Evolving through challenges" },
+                      { icon: Users, title: "Support", desc: "Lifting each other up" }
+                    ].map((item, idx) => (
+                      <div key={idx} className="text-center group/item hover:-translate-y-1 transition-transform duration-300">
+                        <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#FFF8DC] to-[#FFE4B5] rounded-2xl rotate-3 group-hover/item:rotate-6 transition-transform duration-300 shadow-lg border border-[#D4AF37]/20 flex items-center justify-center mb-6">
+                          <item.icon className="w-10 h-10 text-[#800020] group-hover/item:text-[#D4AF37] transition-colors" />
+                        </div>
+                        <h3 className="font-bold text-xl text-[#800020] mb-3">{item.title}</h3>
+                        <p className="text-[#3E2723]/70">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0 }}
@@ -423,7 +524,7 @@ function App() {
                 <p className="hidden md:block">
                   Festivals have always been at the heart of Kerala's culture - they bring people together, create joy, and foster deep connections. But what if we could harness this power to address one of our most pressing challenges?
                 </p>
-                <p className="text-[#2D5016] font-medium">
+                <p className="text-[#8B4513] font-medium">
                   Dhriti reimagines the festival experience as a safe, engaging space where mental health conversations happen naturally. Through interactive activities, creative expression, and community celebration, we're making it easier for people to open up, seek help early, and support one another.
                 </p>
                 <p className="hidden md:block">
@@ -586,46 +687,46 @@ function App() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-gradient-to-r from-[#2D5016] to-[#3D6026] rounded-2xl p-8 md:p-12 text-white"
+              className="bg-gradient-to-r from-[#FFF8DC] to-[#F5DEB3] rounded-2xl p-8 md:p-12 text-[#3E2723]"
             >
               <div className="max-w-4xl mx-auto">
-                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-[#D4AF37]">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-[#800020]">
                   Community Empowerment Through Action
                 </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                      <Heart className="w-5 h-5 text-[#D4AF37]" />
+                      <Heart className="w-5 h-5 text-[#800020]" />
                       Improved Emotional Awareness
                     </h4>
-                    <p className="text-white/80 hidden md:block">
+                    <p className="text-[#3E2723]/80 hidden md:block">
                       Participants gain practical tools to recognize, understand, and express their emotions healthily.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                      <Users className="w-5 h-5 text-[#D4AF37]" />
+                      <Users className="w-5 h-5 text-[#800020]" />
                       Strengthened Support Networks
                     </h4>
-                    <p className="text-white/80 hidden md:block">
+                    <p className="text-[#3E2723]/80 hidden md:block">
                       Building lasting connections between individuals, families, schools, and organizations committed to mental wellness.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                      <Brain className="w-5 h-5 text-[#D4AF37]" />
+                      <Brain className="w-5 h-5 text-[#800020]" />
                       Early Intervention Mindset
                     </h4>
-                    <p className="text-white/80 hidden md:block">
+                    <p className="text-[#3E2723]/80 hidden md:block">
                       Shifting from crisis response to proactive mental health care through early help-seeking behaviors.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-[#D4AF37]" />
+                      <Sparkles className="w-5 h-5 text-[#800020]" />
                       Cultural Transformation
                     </h4>
-                    <p className="text-white/80 hidden md:block">
+                    <p className="text-[#3E2723]/80 hidden md:block">
                       Leading Kerala toward a future where mental health is discussed as openly as physical health.
                     </p>
                   </div>
@@ -667,7 +768,7 @@ function App() {
                   description: "Anonymous sharing spaces where you can express concerns freely, realizing you're not alone in your struggles."
                 },
                 {
-                  image: "/art_therapy.jpeg",
+                  image: "/art_therapy.png",
                   title: "Art & Art Therapy",
                   description: "Express emotions through creative mediums - painting, sculpting, and crafting your way to self-discovery and healing."
                 },
@@ -677,7 +778,7 @@ function App() {
                   description: "Gamified learning experiences that make understanding mental health fun, interactive, and accessible to all ages."
                 },
                 {
-                  image: "/dance_therapy.jpeg",
+                  image: "/dance_therapy.png",
                   title: "Dance Therapy",
                   description: "Move, express, and heal through rhythm and movement in sessions blending traditional Kerala dance with therapeutic practices."
                 }
@@ -700,6 +801,16 @@ function App() {
                           src={activity.image}
                           alt={activity.title}
                           className="w-full h-full object-cover transition-transform duration-500 md:group-hover:scale-110"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            if (target.src.includes('.jpeg')) {
+                              target.src = target.src.replace('.jpeg', '.png');
+                            } else if (target.src.includes('.png')) {
+                              target.src = target.src.replace('.png', '.jpeg');
+                            } else if (target.src.includes('.jpg')) {
+                              target.src = target.src.replace('.jpg', '.png');
+                            }
+                          }}
                         />
                       </div>
                       <CardHeader>
@@ -1030,7 +1141,7 @@ function App() {
         </section>
 
         {/* Partnership/CSR Section */}
-        <section id="partnership" className="py-20 md:py-32 bg-gradient-to-br from-[#2D5016] to-[#1D4010]">
+        <section id="partnership" className="py-20 md:py-32 bg-gradient-to-br from-[#FFF8DC] to-[#F5DEB3]">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -1040,14 +1151,14 @@ function App() {
               className="max-w-6xl mx-auto"
             >
               <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
                   Partner with Dhriti
                 </h2>
-                <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                <p className="text-xl text-[#3E2723] max-w-2xl mx-auto">
                   Align your organization with Kerala's groundbreaking mental health initiative
                 </p>
-                <div className="inline-block mt-4 px-4 py-2 bg-[#FDD835]/20 rounded-lg hidden md:inline-block">
-                  <p className="text-[#FDD835] font-semibold">
+                <div className="inline-block mt-4 px-4 py-2 bg-[#D4AF37]/20 rounded-lg hidden md:inline-block">
+                  <p className="text-[#800020] font-semibold">
                     Perfect timing for March CSR closing
                   </p>
                 </div>
@@ -1078,10 +1189,10 @@ function App() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <div className="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-[#D4AF37]/30 hover:bg-white/20 transition-all duration-300">
-                      <benefit.icon className="w-12 h-12 text-[#D4AF37] mb-4" />
-                      <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-3">{benefit.title}</h3>
-                      <p className="text-white/80 hidden md:block">{benefit.description}</p>
+                    <div className="bg-white/60 backdrop-blur-md p-8 rounded-xl border border-[#800020]/20 hover:bg-white/80 transition-all duration-300">
+                      <benefit.icon className="w-12 h-12 text-[#800020] mb-4" />
+                      <h3 className="text-lg md:text-xl font-bold text-[#3E2723] mb-1 md:mb-3">{benefit.title}</h3>
+                      <p className="text-[#3E2723]/80 hidden md:block">{benefit.description}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -1089,7 +1200,7 @@ function App() {
 
               {/* Sponsorship Opportunities Showcase */}
               <div className="mb-12">
-                <h3 className="text-2xl font-bold text-white text-center mb-8">Sponsorship Opportunities</h3>
+                <h3 className="text-2xl font-bold text-[#800020] text-center mb-8">Sponsorship Opportunities</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     "Title Sponsor",
@@ -1103,12 +1214,12 @@ function App() {
                   ].map((role, index) => (
                     <div
                       key={index}
-                      className="border border-[#D4AF37]/30 bg-white/5 rounded-lg p-3 md:p-6 flex flex-col items-center justify-center aspect-[2/1] md:aspect-video group hover:bg-[#D4AF37]/10 transition-colors cursor-pointer"
+                      className="border border-[#800020]/20 bg-white/60 rounded-lg p-3 md:p-6 flex flex-col items-center justify-center aspect-[2/1] md:aspect-video group hover:bg-[#800020]/10 transition-colors cursor-pointer"
                     >
-                      <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-dashed border-[#D4AF37]/50 flex items-center justify-center mb-2 md:mb-3 group-hover:border-solid group-hover:bg-[#D4AF37] group-hover:text-[#800020] transition-all">
-                        <span className="text-[#D4AF37] text-xl md:text-2xl group-hover:text-[#800020]">+</span>
+                      <div className="w-8 h-8 md:w-12 md:h-12 rounded-full border border-dashed border-[#800020]/50 flex items-center justify-center mb-2 md:mb-3 group-hover:border-solid group-hover:bg-[#800020] group-hover:text-white transition-all">
+                        <span className="text-[#800020] text-xl md:text-2xl group-hover:text-white">+</span>
                       </div>
-                      <span className="text-white/80 font-medium text-xs md:text-sm text-center group-hover:text-white">{role}</span>
+                      <span className="text-[#3E2723] font-medium text-xs md:text-sm text-center group-hover:text-[#800020]">{role}</span>
                     </div>
                   ))}
                 </div>
@@ -1117,7 +1228,7 @@ function App() {
               <div className="text-center">
                 <Button
                   size="lg"
-                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#2D5016] font-bold text-lg px-10 py-6 h-auto shadow-2xl"
+                  className="bg-[#D4AF37] hover:bg-[#C4A137] text-[#8B4513] font-bold text-lg px-10 py-6 h-auto shadow-2xl"
                 >
                   <Building2 className="w-5 h-5" />
                   Become a Partner
@@ -1165,7 +1276,7 @@ function App() {
                 }
               ].map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#D4AF37]/20">
-                  <AccordionTrigger className="text-lg font-semibold text-[#2D5016] hover:text-[#800020] text-left">
+                  <AccordionTrigger className="text-lg font-semibold text-[#8B4513] hover:text-[#D4AF37] text-left">
                     {faq.q}
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-600 text-base leading-relaxed">
