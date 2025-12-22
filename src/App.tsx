@@ -347,30 +347,30 @@ function App() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-3 md:space-y-6"
+              className="space-y-6 md:space-y-8"
             >
-              <div className="inline-block px-4 py-2 md:px-6 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-2 md:mb-4 max-w-[90vw]">
+              <div className="inline-block px-4 py-2 md:px-6 bg-[#D4AF37]/20 backdrop-blur-sm rounded-full border-2 border-[#D4AF37] mb-6 md:mb-8 max-w-[90vw]">
                 <p className="text-[#D4AF37] font-semibold text-xs md:text-base whitespace-normal break-words leading-tight">
                   Mind Empowered Mental Health Festival
                 </p>
               </div>
 
-              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
+              <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight">
                 Dhriti
               </h1>
 
-              <p className="text-xl md:text-4xl text-[#D4AF37] font-light italic">
+              <p className="text-2xl md:text-4xl text-[#D4AF37] font-light italic">
                 Elevate yourself by yourself
               </p>
 
-              <div className="flex items-center justify-center gap-3 text-white/90 text-lg md:text-2xl mt-4 md:mt-8">
+              <div className="flex items-center justify-center gap-3 text-white/90 text-lg md:text-2xl mt-8 md:mt-12">
                 <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37]" />
                 <span>February 14, 2026</span>
                 <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37]" />
               </div>
 
               {/* Countdown Timer */}
-              <div className="flex flex-wrap justify-center gap-2 md:gap-4 mt-5 md:mt-8">
+              <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-8 md:mt-12">
                 {[
                   { value: timeLeft.days, label: "Days" },
                   { value: timeLeft.hours, label: "Hours" },
@@ -380,11 +380,11 @@ function App() {
                   <div key={index} className="flex flex-col items-center">
                     <div className="relative group">
                       <div className="absolute inset-0 bg-[#D4AF37] blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-xl" />
-                      <div className="relative bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 p-2 md:p-4 rounded-xl flex flex-col items-center min-w-[65px] md:min-w-[100px] shadow-2xl hover:-translate-y-1 transition-transform duration-300">
-                        <span className="text-xl md:text-5xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] leading-none">
+                      <div className="relative bg-black/40 backdrop-blur-md border border-[#D4AF37]/30 p-3 md:p-4 rounded-xl flex flex-col items-center min-w-[70px] md:min-w-[100px] shadow-2xl hover:-translate-y-1 transition-transform duration-300">
+                        <span className="text-2xl md:text-5xl font-bold text-white tabular-nums drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] leading-none">
                           {item.value.toString().padStart(2, '0')}
                         </span>
-                        <span className="text-[#D4AF37] text-[9px] md:text-xs font-bold uppercase tracking-widest mt-1 md:mt-2">
+                        <span className="text-[#D4AF37] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1 md:mt-2">
                           {item.label}
                         </span>
                       </div>
@@ -393,21 +393,21 @@ function App() {
                 ))}
               </div>
 
-              <p className="text-white/80 text-base md:text-xl max-w-3xl mx-auto mt-4 md:mt-6 px-4">
+              <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mt-8 md:mt-10 px-4 leading-relaxed">
                 Kerala’s First Mental Health Festival with alot of fun activities and practical workshops
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mt-6 md:mt-10 w-full">
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mt-10 md:mt-16 w-full">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-sm md:text-lg px-8 py-3 md:px-8 md:py-6 h-auto shadow-xl active:scale-95 transition-transform duration-200"
+                  className="w-full sm:w-auto bg-[#D4AF37] hover:bg-[#C4A137] text-[#800020] font-bold text-base md:text-lg px-8 py-4 md:px-8 md:py-6 h-auto shadow-xl active:scale-95 transition-transform duration-200"
                 >
                   Join the Movement
                 </Button>
                 <a href="https://www.mind-empowered.org" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto border-2 border-white bg-transparent text-white hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-sm md:text-lg px-8 py-3 md:px-8 md:py-6 h-auto shadow-xl transition-all duration-300 active:scale-95"
+                    className="w-full sm:w-auto border-2 border-white bg-transparent text-white hover:bg-[#D4AF37] hover:text-white hover:border-[#D4AF37] font-bold text-base md:text-lg px-8 py-4 md:px-8 md:py-6 h-auto shadow-xl transition-all duration-300 active:scale-95"
                   >
                     Learn about ME
                   </Button>
@@ -488,18 +488,18 @@ function App() {
                     </p>
                   </div>
 
-                  <div className="grid md:grid-cols-3 gap-8 mt-16 pt-12 border-t border-[#D4AF37]/20">
+                  <div className="flex flex-row justify-center md:grid md:grid-cols-3 gap-4 md:gap-8 mt-8 md:mt-16 pt-8 md:pt-12 border-t border-[#D4AF37]/20">
                     {[
                       { icon: Shield, title: "Strength", desc: "Finding power in vulnerability" },
                       { icon: TrendingUp, title: "Growth", desc: "Evolving through challenges" },
                       { icon: Users, title: "Support", desc: "Lifting each other up" }
                     ].map((item, idx) => (
-                      <div key={idx} className="text-center group/item hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#FFF8DC] to-[#FFE4B5] rounded-2xl rotate-3 group-hover/item:rotate-6 transition-transform duration-300 shadow-lg border border-[#D4AF37]/20 flex items-center justify-center mb-6">
-                          <item.icon className="w-10 h-10 text-[#800020] group-hover/item:text-[#D4AF37] transition-colors" />
+                      <div key={idx} className="flex-1 text-center group/item hover:-translate-y-1 transition-transform duration-300">
+                        <div className="w-12 h-12 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-[#FFF8DC] to-[#FFE4B5] rounded-xl md:rounded-2xl rotate-3 group-hover/item:rotate-6 transition-transform duration-300 shadow-lg border border-[#D4AF37]/20 flex items-center justify-center mb-3 md:mb-6">
+                          <item.icon className="w-6 h-6 md:w-10 md:h-10 text-[#800020] group-hover/item:text-[#D4AF37] transition-colors" />
                         </div>
-                        <h3 className="font-bold text-xl text-[#800020] mb-3">{item.title}</h3>
-                        <p className="text-[#3E2723]/70">{item.desc}</p>
+                        <h3 className="font-bold text-sm md:text-xl text-[#800020] mb-1 md:mb-3">{item.title}</h3>
+                        <p className="text-[#3E2723]/70 text-[10px] md:text-base leading-tight md:leading-normal">{item.desc}</p>
                       </div>
                     ))}
                   </div>
