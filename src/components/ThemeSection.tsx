@@ -74,8 +74,8 @@ export function ThemeSection() {
                                 { icon: Users, title: "Support", desc: "Lifting each other up" }
                             ].map((item, idx) => (
                                 <div key={idx} className="text-center group/item hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#FFF8DC] to-[#FFE4B5] rounded-2xl rotate-3 group-hover/item:rotate-6 transition-transform duration-300 shadow-lg border border-[#D4AF37]/20 flex items-center justify-center mb-6">
-                                        <item.icon className="w-10 h-10 text-[#800020] group-hover/item:text-[#D4AF37] transition-colors" />
+                                    <div className="w-14 h-14 md:w-20 md:h-20 mx-auto bg-gradient-to-br from-[#FFF8DC] to-[#FFE4B5] rounded-2xl rotate-3 group-hover/item:rotate-6 transition-transform duration-300 shadow-lg border border-[#D4AF37]/20 flex items-center justify-center mb-4 md:mb-6">
+                                        <item.icon className="w-7 h-7 md:w-10 md:h-10 text-[#800020] group-hover/item:text-[#D4AF37] transition-colors" />
                                     </div>
                                     <h3 className="font-bold text-xl text-[#800020] mb-3">{item.title}</h3>
                                     <p className="text-[#3E2723]/70">{item.desc}</p>
