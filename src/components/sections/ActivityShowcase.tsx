@@ -62,8 +62,34 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                    {ACTIVITIES_DATA.slice(0, visibleActivitiesCount).map((activity, index) => {
+                {/* Scroll Controls */}
+                <div className="flex justify-end gap-2 mb-4 px-1">
+                    <button
+                        onClick={() => document.getElementById('activities-scroll-container')?.scrollBy({ left: -320, behavior: 'smooth' })}
+                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors bg-white shadow-sm"
+                        aria-label="Scroll left"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button
+                        onClick={() => document.getElementById('activities-scroll-container')?.scrollBy({ left: 320, behavior: 'smooth' })}
+                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors bg-white shadow-sm"
+                        aria-label="Scroll right"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div
+                    id="activities-scroll-container"
+                    className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-1"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                    {ACTIVITIES_DATA.map((activity, index) => {
                         const isLockedSurprise = activity.isSurprise && !isSurpriseRevealed;
 
                         const displayActivity = isLockedSurprise ? {
@@ -81,7 +107,7 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                                className="h-full"
+                                className="h-full min-w-[300px] md:min-w-[340px] snap-center"
                                 ref={isLockedSurprise ? setSurpriseBoxRef : undefined}
                             >
                                 <motion.div
@@ -196,22 +222,14 @@ export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
                     })}
                 </div>
 
-                {visibleActivitiesCount < ACTIVITIES_DATA.length && (
-                    <div className="flex flex-col md:flex-row justify-center gap-4 mt-12 pb-8">
-                        <Button
-                            onClick={handleLoadMore}
-                            className="bg-white border-2 border-[#800020] text-[#800020] hover:bg-[#800020] hover:text-white px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2 group"
-                        >
-                            Load More Activities <TrendingUp className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                        <Button
-                            onClick={() => setShowTimeline(true)}
-                            className="bg-[#D4AF37] text-[#800020] hover:bg-[#C4A137] border-2 border-[#D4AF37] px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2"
-                        >
-                            View Full Schedule <CalendarClock className="w-5 h-5" />
-                        </Button>
-                    </div>
-                )}
+                <div className="flex flex-col md:flex-row justify-center gap-4 mt-8 pb-8">
+                    <Button
+                        onClick={() => setShowTimeline(true)}
+                        className="bg-[#D4AF37] text-[#800020] hover:bg-[#C4A137] border-2 border-[#D4AF37] px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2"
+                    >
+                        View Full Schedule <CalendarClock className="w-5 h-5" />
+                    </Button>
+                </div>
             </div>
 
             {/* Timeline & Instructions Modal */}

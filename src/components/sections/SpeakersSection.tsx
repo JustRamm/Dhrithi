@@ -24,47 +24,66 @@ export function SpeakersSection() {
                 </motion.div>
             </div>
 
-            {/* Endless Scroll Carousel */}
+            {/* Manual Scroll Carousel */}
             <div className="relative">
-                <div className="relative w-full overflow-hidden group">
-                    <div className="flex w-max animate-marquee pause-on-hover px-4">
-                        {[...Array(2)].map((_, setIndex) => (
-                            <div key={setIndex} className="flex gap-6 pr-6">
-                                {SPEAKERS_DATA.map((speaker, index) => (
-                                    <div
-                                        key={index}
-                                        onClick={() => setSelectedSpeaker(speaker)}
-                                        className="w-[220px] md:w-[250px] shrink-0 bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:border-[#D4AF37]/50 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:-translate-y-1 group"
-                                    >
-                                        <div className="h-48 md:h-56 overflow-hidden relative">
-                                            <LazyImage
-                                                src={speaker.image}
-                                                alt={speaker.name}
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                                                wrapperClassName="w-full h-full"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
+                {/* Scroll Controls (Desktop only) */}
+                <div className="hidden md:flex justify-end gap-2 container mx-auto px-6 mb-4">
+                    <button
+                        onClick={() => document.getElementById('speakers-scroll-container')?.scrollBy({ left: -300, behavior: 'smooth' })}
+                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors"
+                        aria-label="Scroll left"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button
+                        onClick={() => document.getElementById('speakers-scroll-container')?.scrollBy({ left: 300, behavior: 'smooth' })}
+                        className="p-2 rounded-full border border-[#800020]/20 hover:bg-[#800020]/5 text-[#800020] transition-colors"
+                        aria-label="Scroll right"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                <div
+                    id="speakers-scroll-container"
+                    className="flex overflow-x-auto gap-6 px-6 pb-8 snap-x snap-mandatory scrollbar-hide md:justify-center"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                    {SPEAKERS_DATA.map((speaker, index) => (
+                        <div
+                            key={index}
+                            onClick={() => setSelectedSpeaker(speaker)}
+                            className="w-[280px] md:w-[250px] shrink-0 bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:border-[#D4AF37]/50 transition-all duration-300 cursor-pointer md:hover:shadow-2xl md:hover:-translate-y-1 group snap-center"
+                        >
+                            <div className="h-64 md:h-56 overflow-hidden relative">
+                                <LazyImage
+                                    src={speaker.image}
+                                    alt={speaker.name}
+                                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110 md:grayscale md:group-hover:grayscale-0"
+                                    wrapperClassName="w-full h-full"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#800020]/90 to-transparent opacity-80 md:opacity-60 md:group-hover:opacity-40 transition-opacity duration-300" />
 
-                                            <div className="absolute bottom-0 left-0 w-full p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                                                <p className="text-[#D4AF37] font-medium text-xs uppercase tracking-wider mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">{speaker.role}</p>
-                                                <h3 className="text-lg font-bold text-white leading-tight">{speaker.name}</h3>
-                                            </div>
-                                        </div>
-                                        <div className="p-4 bg-white relative">
-                                            <div className="absolute top-0 right-4 -mt-3 w-6 h-6 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-md">
-                                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
-                                                </svg>
-                                            </div>
-                                            <p className="text-[#800020] text-xs font-serif italic line-clamp-2 leading-relaxed opacity-80">
-                                                "{speaker.topic}"
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                                <div className="absolute bottom-0 left-0 w-full p-6 md:p-4 transform translate-y-0 md:translate-y-2 md:group-hover:translate-y-0 transition-transform duration-300">
+                                    <p className="text-[#D4AF37] font-medium text-sm md:text-xs uppercase tracking-wider mb-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:delay-75">{speaker.role}</p>
+                                    <h3 className="text-xl md:text-lg font-bold text-white leading-tight">{speaker.name}</h3>
+                                </div>
                             </div>
-                        ))}
-                    </div>
+                            <div className="p-5 md:p-4 bg-white relative h-full">
+                                <div className="absolute top-0 right-4 -mt-3 w-8 h-8 md:w-6 md:h-6 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-md">
+                                    <svg className="w-4 h-4 md:w-3 md:h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </div>
+                                <p className="text-[#800020] text-sm md:text-xs font-serif italic line-clamp-2 leading-relaxed opacity-90 md:opacity-80">
+                                    "{speaker.topic}"
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
