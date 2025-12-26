@@ -1,0 +1,400 @@
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { LazyImage } from "@/components/ui/LazyImage";
+import { Sparkles, TrendingUp, X, Clock, Mic, Info, CalendarClock } from "lucide-react";
+import { ACTIVITIES_DATA, SURPRISE_REVEAL_DATE } from "@/data/activities";
+
+interface ActivityShowcaseProps {
+    setSurpriseBoxRef?: (node: HTMLElement | null) => void;
+}
+
+export function ActivityShowcase({ setSurpriseBoxRef }: ActivityShowcaseProps) {
+    const [visibleActivitiesCount, setVisibleActivitiesCount] = useState(4);
+    const [isSurpriseRevealed, setIsSurpriseRevealed] = useState(false);
+    const [isShaking, setIsShaking] = useState(false);
+    const [showTimeline, setShowTimeline] = useState(false);
+    const [selectedActivity, setSelectedActivity] = useState<{ title: string; description: string; image: string; timing: string; instruction: string; speaker?: string; isSurprise?: boolean } | null>(null);
+
+    useEffect(() => {
+        const checkReveal = () => {
+            const now = new Date();
+            setIsSurpriseRevealed(now >= SURPRISE_REVEAL_DATE);
+        };
+
+        checkReveal();
+        const interval = setInterval(checkReveal, 60000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleLoadMore = () => {
+        setVisibleActivitiesCount(prev => Math.min(prev + 4, ACTIVITIES_DATA.length));
+    };
+
+    const handleCardClick = (activity: any) => {
+        if (activity.isSurprise && !isSurpriseRevealed) {
+            if (typeof navigator !== 'undefined' && navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            setIsShaking(true);
+            setTimeout(() => setIsShaking(false), 500);
+        } else {
+            setSelectedActivity(activity);
+        }
+    };
+
+    return (
+        <section id="activities" className="py-20 md:py-32 bg-white">
+            <div className="container mx-auto px-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#800020] mb-4">
+                        Experience Dhriti
+                    </h2>
+                    <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-2">
+                        Immersive activities designed to engage, inspire, and transform
+                    </p>
+                </motion.div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                    {ACTIVITIES_DATA.slice(0, visibleActivitiesCount).map((activity, index) => {
+                        const isLockedSurprise = activity.isSurprise && !isSurpriseRevealed;
+
+                        const displayActivity = isLockedSurprise ? {
+                            ...activity,
+                            title: "A Surprise Event",
+                            description: "It's a secret! Join us on Feb 14th at 12:00 PM to find out what magic awaits.",
+                            timing: "TBA",
+                            image: ""
+                        } : activity;
+
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.05 }}
+                                className="h-full"
+                                ref={isLockedSurprise ? setSurpriseBoxRef : undefined}
+                            >
+                                <motion.div
+                                    initial={{ scale: 1, rotate: 0 }}
+                                    animate={isLockedSurprise && isShaking ? {
+                                        x: [-5, 5, -5, 5, 0],
+                                        transition: { duration: 0.4 }
+                                    } : { scale: 1, rotate: 0 }}
+                                    whileHover={isLockedSurprise ? { rotate: [0, -3, 3, -3, 3, 0], transition: { duration: 2, repeat: Infinity, ease: "easeInOut" } } : { y: -10 }}
+                                    onClick={() => handleCardClick(activity)}
+                                    className="group cursor-pointer h-full"
+                                >
+                                    <Card className={`h-full overflow-hidden border-2 transition-all duration-300 flex flex-col active:scale-95 relative ${isLockedSurprise ? 'bg-gradient-to-br from-[#4a0013] via-[#800020] to-[#4a0013] border-[#FFD700] shadow-[0_0_30px_rgba(128,0,32,0.4)]' : 'bg-white border-[#D4AF37]/20 hover:border-[#D4AF37] hover:shadow-xl'}`}>
+                                        {isLockedSurprise && (
+                                            <>
+                                                <div className="absolute inset-y-0 left-1/2 w-12 -translate-x-1/2 bg-gradient-to-b from-[#FFD700]/40 via-[#FFD700]/20 to-[#FFD700]/40 border-x border-[#FFD700]/50 shadow-[0_0_15px_rgba(255,215,0,0.3)] pointer-events-none z-0">
+                                                    <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                                                </div>
+                                                <div className="absolute inset-x-0 top-[40%] h-12 -translate-y-1/2 bg-gradient-to-r from-[#FFD700]/40 via-[#FFD700]/20 to-[#FFD700]/40 border-y border-[#FFD700]/50 shadow-[0_0_15px_rgba(255,215,0,0.3)] pointer-events-none z-0">
+                                                    <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                                                </div>
+
+                                                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                                                    <motion.svg
+                                                        width="100"
+                                                        height="80"
+                                                        viewBox="0 0 80 60"
+                                                        fill="none"
+                                                        className="drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)] filter brightness-110"
+                                                        animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+                                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                                    >
+                                                        <defs>
+                                                            <linearGradient id="goldGradientSurprise" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                                <stop offset="0%" stopColor="#FFD700" />
+                                                                <stop offset="50%" stopColor="#FDB931" />
+                                                                <stop offset="100%" stopColor="#FFD700" />
+                                                            </linearGradient>
+                                                            <filter id="glowSurprise">
+                                                                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                                                                <feMerge>
+                                                                    <feMergeNode in="coloredBlur" />
+                                                                    <feMergeNode in="SourceGraphic" />
+                                                                </feMerge>
+                                                            </filter>
+                                                        </defs>
+                                                        <path d="M40 30 C 20 10, 0 10, 5 30 C 10 45, 30 35, 40 30" fill="url(#goldGradientSurprise)" filter="url(#glowSurprise)" />
+                                                        <path d="M40 30 C 60 10, 80 10, 75 30 C 70 45, 50 35, 40 30" fill="url(#goldGradientSurprise)" filter="url(#glowSurprise)" />
+                                                        <path d="M40 30 Q 30 50 20 55" stroke="url(#goldGradientSurprise)" strokeWidth="4" strokeLinecap="round" />
+                                                        <path d="M40 30 Q 50 50 60 55" stroke="url(#goldGradientSurprise)" strokeWidth="4" strokeLinecap="round" />
+                                                        <circle cx="40" cy="30" r="5" fill="#FFE4B5" stroke="#B8860B" strokeWidth="1" />
+                                                    </motion.svg>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {activity.isSurprise && isSurpriseRevealed && (
+                                            <div className="absolute top-0 right-0 z-30">
+                                                <div className="bg-[#FFD700] text-[#800020] text-xs font-bold px-3 py-1 rounded-bl-xl shadow-md">
+                                                    SURPRISE REVEALED!
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className={`h-48 overflow-hidden flex items-center justify-center relative z-10 ${isLockedSurprise ? 'bg-transparent' : 'bg-gray-100'}`}>
+                                            {isLockedSurprise ? (
+                                                <div className="relative w-full h-full flex items-center justify-center">
+                                                    <Sparkles className="absolute top-4 right-4 w-8 h-8 text-[#FFD700] animate-spin-slow" />
+                                                    <Sparkles className="absolute bottom-4 left-4 w-6 h-6 text-white animate-pulse delay-500" />
+                                                </div>
+                                            ) : (
+                                                <LazyImage
+                                                    src={displayActivity.image}
+                                                    alt={displayActivity.title}
+                                                    className="w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
+                                                    wrapperClassName="w-full h-full"
+                                                />
+                                            )}
+
+                                            {!isLockedSurprise && (
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                            )}
+                                        </div>
+
+                                        <CardHeader className="relative z-10 text-center pb-2 pt-6 px-4">
+                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white border border-[#D4AF37] px-3 py-1 rounded-full text-xs font-bold text-[#800020] shadow-sm whitespace-nowrap z-20">
+                                                {displayActivity.timing}
+                                            </div>
+                                            <CardTitle className={`leading-tight ${isLockedSurprise ? 'text-[#FFD700] text-2xl font-black tracking-wide drop-shadow-md' : 'text-[#800020] text-xl'}`}>
+                                                {displayActivity.title}
+                                            </CardTitle>
+                                        </CardHeader>
+
+                                        <CardContent className="flex-grow flex flex-col relative z-10 text-center px-6 pb-6 pt-2">
+                                            <p className={`text-sm ${isLockedSurprise ? 'text-[#FFE4B5] font-medium' : 'text-gray-600'} mb-6 flex-grow line-clamp-3`}>
+                                                {displayActivity.description}
+                                            </p>
+                                            <Button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleCardClick(activity);
+                                                }}
+                                                className={`w-full ${isLockedSurprise ? 'bg-gradient-to-r from-[#FFD700] to-[#B8860B] hover:from-[#FFE4B5] hover:to-[#D4AF37] text-[#800020] font-bold border-none shadow-lg' : 'bg-transparent border-2 border-[#800020] text-[#800020] hover:bg-[#800020] hover:text-white'} mt-auto transition-all rounded-xl py-6 tracking-wide text-sm active:scale-95`}
+                                            >
+                                                {isLockedSurprise ? 'Reveal Magic ✨' : 'View Details'}
+                                            </Button>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+
+                {visibleActivitiesCount < ACTIVITIES_DATA.length && (
+                    <div className="flex flex-col md:flex-row justify-center gap-4 mt-12 pb-8">
+                        <Button
+                            onClick={handleLoadMore}
+                            className="bg-white border-2 border-[#800020] text-[#800020] hover:bg-[#800020] hover:text-white px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2 group"
+                        >
+                            Load More Activities <TrendingUp className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                        <Button
+                            onClick={() => setShowTimeline(true)}
+                            className="bg-[#D4AF37] text-[#800020] hover:bg-[#C4A137] border-2 border-[#D4AF37] px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all active:scale-95 flex items-center gap-2"
+                        >
+                            View Full Schedule <CalendarClock className="w-5 h-5" />
+                        </Button>
+                    </div>
+                )}
+            </div>
+
+            {/* Timeline & Instructions Modal */}
+            <AnimatePresence>
+                {showTimeline && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowTimeline(false)}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            aria-hidden="true"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                            className="bg-[#FFF8DC] rounded-[2rem] overflow-hidden max-w-4xl w-full max-h-[85vh] shadow-2xl relative z-10 flex flex-col"
+                            role="dialog"
+                            aria-modal="true"
+                        >
+                            <div className="p-6 md:p-8 border-b border-[#D4AF37]/20 bg-white/50 backdrop-blur-md flex justify-between items-center sticky top-0 z-20">
+                                <div>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-[#800020] flex items-center gap-3">
+                                        <CalendarClock className="w-8 h-8 text-[#D4AF37]" /> Festival Timeline
+                                    </h3>
+                                    <p className="text-gray-600 text-sm mt-1">February 14, 2026 • Kochi, Kerala</p>
+                                </div>
+                                <button
+                                    onClick={() => setShowTimeline(false)}
+                                    className="p-2 bg-black/5 hover:bg-black/10 rounded-full transition-colors"
+                                >
+                                    <X className="w-6 h-6 text-[#800020]" />
+                                </button>
+                            </div>
+
+                            <div className="overflow-y-auto p-6 md:p-10 space-y-12">
+                                {/* Timeline Section */}
+                                <div>
+                                    <h4 className="text-xl font-bold text-[#800020] mb-8 border-l-4 border-[#D4AF37] pl-4">Day Agenda</h4>
+                                    <div className="relative border-l-2 border-[#D4AF37]/30 ml-4 md:ml-6 space-y-8 md:space-y-10">
+                                        {[
+                                            { time: "09:00 AM", title: "Inauguration & Opening", desc: "Welcome keynote by Founders & Lighting the Lamp", icon: Sparkles },
+                                            { time: "10:00 AM", title: "Morning Wellness Sessions", desc: "Choose between Yoga for Anxiety or Art Therapy", icon: Clock },
+                                            { time: "12:00 PM", title: " grandeur Surprise Reveal!", desc: "The big moment we've been waiting for! Gather at the Main Stage.", highlight: true, icon: Sparkles },
+                                            { time: "01:00 PM", title: "Community Lunch", desc: "Networking and sharing a meal together", icon: Clock },
+                                            { time: "02:30 PM", title: "Interactive Workshops", desc: "Dance Movement Therapy & Group Circles", icon: Clock },
+                                            { time: "05:00 PM", title: "Closing Ceremony", desc: "Performances and final thoughts", icon: Sparkles },
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="relative pl-8 md:pl-12 group">
+                                                <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 ${item.highlight ? 'bg-[#FFD700] border-[#800020] w-6 h-6 -left-[13px] animate-pulse' : 'bg-[#FFF8DC] border-[#D4AF37]'} transition-all group-hover:scale-125`} />
+                                                <div className={`p-4 rounded-xl ${item.highlight ? 'bg-gradient-to-r from-[#800020] to-[#5C0120] text-white shadow-lg transform md:-translate-y-1' : 'bg-white border border-[#D4AF37]/20 hover:border-[#D4AF37] hover:shadow-md'} transition-all`}>
+                                                    <span className={`text-xs font-bold tracking-wider ${item.highlight ? 'text-[#FFD700]' : 'text-[#800020]'}`}>{item.time}</span>
+                                                    <h5 className={`text-lg font-bold mt-1 mb-1 ${item.highlight ? 'text-white' : 'text-gray-800'}`}>{item.title}</h5>
+                                                    <p className={`text-sm ${item.highlight ? 'text-white/80' : 'text-gray-600'}`}>{item.desc}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Instructions Section */}
+                                <div>
+                                    <h4 className="text-xl font-bold text-[#800020] mb-6 border-l-4 border-[#D4AF37] pl-4">Event Instructions</h4>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        {[
+                                            "Please arrive 30 minutes prior to your first registered session.",
+                                            "Carry a valid ID proof for verification at the entrance.",
+                                            "Wear comfortable clothing suitable for movement activities.",
+                                            "Bring a water bottle to stay hydrated throughout the day.",
+                                            "Respect privacy: No photography in sensitive workshop areas.",
+                                            "Most importantly, bring an open heart and mind!"
+                                        ].map((instruction, i) => (
+                                            <div key={i} className="flex items-start gap-3 bg-white p-4 rounded-xl border border-[#D4AF37]/10">
+                                                <Info className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+                                                <p className="text-gray-700 text-sm">{instruction}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-6 border-t border-[#D4AF37]/20 bg-white/50 backdrop-blur-md flex justify-end">
+                                <Button onClick={() => setShowTimeline(false)} className="bg-[#800020] text-white hover:bg-[#600018]">
+                                    Close Schedule
+                                </Button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Activity Details Modal */}
+            <AnimatePresence>
+                {selectedActivity && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setSelectedActivity(null)}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            aria-hidden="true"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl relative z-10 flex flex-col"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="activity-title"
+                        >
+                            <button
+                                onClick={() => setSelectedActivity(null)}
+                                className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors z-20"
+                                aria-label="Close modal"
+                            >
+                                <X className="w-6 h-6 text-[#800020]" />
+                            </button>
+
+                            <div className="h-48 md:h-64 overflow-hidden relative">
+                                <LazyImage
+                                    src={selectedActivity.image}
+                                    alt={selectedActivity.title}
+                                    className="w-full h-full object-cover"
+                                    wrapperClassName="w-full h-full"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                                    <h3 id="activity-title" className="text-3xl font-bold text-white shadow-black drop-shadow-md">{selectedActivity.title}</h3>
+                                </div>
+                            </div>
+
+                            <div className="p-6 md:p-8 space-y-6 overflow-y-auto max-h-[60vh]">
+                                <div>
+                                    <h4 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider mb-1">Description</h4>
+                                    <p className="text-gray-700 text-lg leading-relaxed">{selectedActivity.description}</p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#D4AF37]/20">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <Clock className="w-5 h-5 text-[#800020]" />
+                                            <h4 className="font-bold text-[#800020]">Timing</h4>
+                                        </div>
+                                        <p className="text-gray-600 font-medium">{selectedActivity.timing}</p>
+                                    </div>
+
+                                    {selectedActivity.speaker && (
+                                        <div className="bg-[#FAF9F6] p-4 rounded-xl border border-[#D4AF37]/20">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <Mic className="w-5 h-5 text-[#800020]" />
+                                                <h4 className="font-bold text-[#800020]">Facilitator</h4>
+                                            </div>
+                                            <p className="text-gray-600 font-medium">{selectedActivity.speaker}</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="bg-[#800020]/5 p-5 rounded-xl border-l-4 border-[#800020]">
+                                    <h4 className="font-bold text-[#800020] mb-2 flex items-center gap-2">
+                                        <Info className="w-5 h-5" /> Instructions
+                                    </h4>
+                                    <p className="text-gray-700 italic">{selectedActivity.instruction}</p>
+                                </div>
+
+                                <div className="flex flex-col gap-2 mt-4">
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="font-bold text-[#800020] animate-pulse">
+                                            Only {Math.floor(Math.random() * 20) + 5} seats left!
+                                        </span>
+                                        <span className="text-gray-500">Free Registration</span>
+                                    </div>
+                                    <Button className="w-full bg-[#800020] hover:bg-[#600018] text-white py-6 text-lg shadow-lg">
+                                        Register Now
+                                    </Button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+        </section>
+    );
+}
