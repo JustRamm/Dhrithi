@@ -138,7 +138,7 @@ export function GallerySection() {
                             },
                             {
                                 quote: "A revolutionary concept that removes the fear and shame associated with seeking help.",
-                                author: "Srila Menon",
+                                author: "Sreela Menon",
                                 role: "Co-Founder"
                             },
                             {
