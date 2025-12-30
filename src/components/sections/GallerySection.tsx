@@ -19,9 +19,6 @@ export function GallerySection() {
     const y3 = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
     const galleryImages = [
-        { src: "/images/activities/concert.png", alt: "Music Festival", caption: "Healing Melodies", desc: "Soul-stirring performances that uplift the heart." },
-        { src: "/images/activities/art_therapy.png", alt: "Art Therapy Session", caption: "Creative Expression", desc: "Finding peace through colors and textures." },
-        { src: "/images/activities/laughing.png", alt: "Yoga Community", caption: "Collective Joy", desc: "Building resilience through shared laughter." },
         { src: "/images/gallery/gallery1.jpeg", alt: "Community Workshop", caption: "Safe Circles", desc: "Conversations that break the silence." },
         { src: "/images/gallery/gallery2.jpeg", alt: "Wellness Activities", caption: "Mindful Moments", desc: "Practicing the art of being present." },
         { src: "/images/gallery/gallery3.jpeg", alt: "Festival Gathering", caption: "Dhriti Experience", desc: "A movement for mental wellness in Kerala." }
