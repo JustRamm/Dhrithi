@@ -2,7 +2,7 @@
   "name": "dhriti",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://snehadilip1.github.io/dhrithi-website",
+  "homepage": "https://snehadilip1.github.io/dhriti-website",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
