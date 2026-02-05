@@ -235,12 +235,13 @@ export function SpeakersSection() {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative w-full max-w-4xl max-h-screen overflow-hidden flex items-center justify-center z-10 p-4"
+                            className="relative w-full max-w-4xl max-h-[95vh] overflow-hidden flex items-center justify-center z-10 p-4"
                         >
-                            <img
+                            <LazyImage
                                 src={viewingPoster}
                                 alt="Event Poster"
-                                className="w-full h-auto max-h-[90vh] object-contain shadow-2xl rounded-lg"
+                                className="w-full h-auto max-h-[90vh] object-contain shadow-2xl rounded-xl"
+                                wrapperClassName="w-full h-auto max-h-[90vh] flex items-center justify-center bg-transparent"
                             />
                         </motion.div>
                     </div>
