@@ -103,8 +103,13 @@ export const SPEAKERS_DATA = [
         topic: "Unlearning Survival Mode",
         poster: "/poster/12.png",
         bio: "Helping individuals move beyond survival mechanisms to a state of thriving and self-discovery through intentional unlearning and mental resilience."
+    },
+    {
+        image: "/images/speakers/speaker_art.png",
+        name: "Sanjana",
+        role: "Art Therapist",
+        topic: "Art Therapy",
+        poster: "/poster/14.png",
+        bio: "An expressive arts therapist dedicated to helping individuals explore their emotions and foster healing through creative mediums like painting, drawing, and sculpting."
     }
 ];
-
-
-
